@@ -1,0 +1,29 @@
+- hosts: app
+  become: yes
+  become_method: sudo
+  tasks:
+    # - name: Create a directory if it does not exist
+    #   file:
+    #     path: /usr/www
+    #     state: directory
+    #     mode: '0755'
+    # - name: Copy file to remote www
+    #   copy:
+    #     src: ./test/1.txt
+    #     dest: /usr/www/1.txt
+    #     mode: '0644'
+    - name: Copy ./test/Centos-7.repo to remote /etc/yum.repos.d/CentOS-Base.repo
+      copy:
+        src: ./test/Centos-7.repo
+        dest: /etc/yum.repos.d/CentOS-Base.repo
+        mode: '0644'
+    - name: yum makecache
+      shell: >
+        yum makecache
+      args:
+        executable: /bin/bash
+    - name: yum install node
+      yum: 
+        name: 
+          - epel-release
+          - nodejs

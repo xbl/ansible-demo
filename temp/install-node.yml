@@ -1,0 +1,13 @@
+- hosts: app
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: yum install node
+      yum: 
+        name: 
+          - epel-release
+          - nodejs
+    # - name: install pm2
+    #   npm:
+    #     name: pm2
+    #     global: yes

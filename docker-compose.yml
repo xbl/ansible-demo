@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+    app1:
+        container_name: 'app1.example.com'
+        image: 'centos-ssh-node:1.1'
+        restart: always
+        hostname: 'app1.example.com'
+        ports:
+            - '2021:22'
+            - '8081:8080'
+        environment: 
+            SSH_USER: root
+            # sudo 免密码
+            SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
+            SSH_AUTHORIZED_KEYS: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH4LJAzWDu2yr46q8A7fz2CNs3/WKNVLNtWUIdbMLmJ2BJ8L71grAzxvgvDaWBSBn8ki8DdJ0s8re7utj/6Cj7cgXr31z/g8trOFfn02Ul/hF3xcfAkYJJYIVu+my9nctQzLkOMkGAMZnX59R+hOlAVv424yBmwz/CtHNlCaQmYzL9Q3vkPdenGf2iQcoGeQHHbkI8JaIYKy9V632ac7qlkpNiODiRNYSkzBDDuJ6eAqz27LxgwbNOD5nmK+CBPp3MSc9B3WcxamUXi2tZe4/JXaijXpWDWlEBslBx9qa+32EVNe9awwPrS/stSXszAnuNVabnFiEN9k+VkLbsHk2b blxie@blxiedeMBP
+        command: ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
+    app2:
+        container_name: 'app2.example.com'
+        image: 'centos-ssh-node:1.1'
+        restart: always
+        hostname: 'app2.example.com'
+        ports:
+            - '2022:22'
+            - '8082:8080'
+        environment: 
+            SSH_USER: root
+            # sudo 免密码
+            SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
+            SSH_AUTHORIZED_KEYS: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH4LJAzWDu2yr46q8A7fz2CNs3/WKNVLNtWUIdbMLmJ2BJ8L71grAzxvgvDaWBSBn8ki8DdJ0s8re7utj/6Cj7cgXr31z/g8trOFfn02Ul/hF3xcfAkYJJYIVu+my9nctQzLkOMkGAMZnX59R+hOlAVv424yBmwz/CtHNlCaQmYzL9Q3vkPdenGf2iQcoGeQHHbkI8JaIYKy9V632ac7qlkpNiODiRNYSkzBDDuJ6eAqz27LxgwbNOD5nmK+CBPp3MSc9B3WcxamUXi2tZe4/JXaijXpWDWlEBslBx9qa+32EVNe9awwPrS/stSXszAnuNVabnFiEN9k+VkLbsHk2b blxie@blxiedeMBP
+        command: ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
+    nginx:
+        container_name: 'www.example.com'
+        image: 'centos-ssh-nginx:1.0'
+        restart: always
+        hostname: 'www.example.com'
+        privileged: true
+        ports:
+            - '2023:22'
+            - '80:80'
+        environment: 
+            SSH_USER: root
+            # sudo 免密码
+            SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
+            SSH_AUTHORIZED_KEYS: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH4LJAzWDu2yr46q8A7fz2CNs3/WKNVLNtWUIdbMLmJ2BJ8L71grAzxvgvDaWBSBn8ki8DdJ0s8re7utj/6Cj7cgXr31z/g8trOFfn02Ul/hF3xcfAkYJJYIVu+my9nctQzLkOMkGAMZnX59R+hOlAVv424yBmwz/CtHNlCaQmYzL9Q3vkPdenGf2iQcoGeQHHbkI8JaIYKy9V632ac7qlkpNiODiRNYSkzBDDuJ6eAqz27LxgwbNOD5nmK+CBPp3MSc9B3WcxamUXi2tZe4/JXaijXpWDWlEBslBx9qa+32EVNe9awwPrS/stSXszAnuNVabnFiEN9k+VkLbsHk2b blxie@blxiedeMBP
+        # volumes:
+        #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        #     - ./nginx/conf.d:/etc/nginx/conf.d/
+        #     - ./html:/usr/share/nginx/html
+        command: bash -c "
+                /usr/sbin/nginx
+                && /usr/bin/supervisord --configuration=/etc/supervisord.conf
+            "
+
