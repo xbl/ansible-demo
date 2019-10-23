@@ -31,7 +31,7 @@ services:
         command: ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
     nginx:
         container_name: 'www.example.com'
-        image: 'centos-ssh-nginx:1.0'
+        image: 'centos-ssh-nginx:1.2'
         restart: always
         hostname: 'www.example.com'
         privileged: true
@@ -47,8 +47,8 @@ services:
         #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
         #     - ./nginx/conf.d:/etc/nginx/conf.d/
         #     - ./html:/usr/share/nginx/html
-        command: bash -c "
-                /usr/sbin/nginx
-                && /usr/bin/supervisord --configuration=/etc/supervisord.conf
-            "
+        # command: bash -c "
+        #         /usr/sbin/nginx
+        #         && /usr/bin/supervisord --configuration=/etc/supervisord.conf
+        #     "
 
