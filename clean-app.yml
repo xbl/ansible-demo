@@ -1,0 +1,12 @@
+- hosts: app
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: delete app
+      command: pm2 delete server
+      ignore_errors: yes
+    - name: rm -Rf ./*
+      file:
+        state: absent
+        path: "/usr/www/"
+    
