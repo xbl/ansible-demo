@@ -56,6 +56,8 @@ ansible all -m ping -i ./inventory/hosts
 ansible-playbook -i ./inventory/hosts deploy-app.yml
 ```
 
+第一次执行的时候会有被忽略的报错，使用 `pm2 delete server` 会报错，因为 server 还不存在，所以此动作的错误是被忽略的，无需惊慌。
+
 访问 [http://app1.example.com:8081/](http://app1.example.com:8081/)
 
 
@@ -64,6 +66,26 @@ Reload NGINX
 
 ```shell
 ansible-playbook -i ./inventory/hosts reload-nginx.yml
+```
+
+访问 [http://www.example.com/api/](http://www.example.com/api/)
+
+
+
+更新 `files/app/server.js` 的版本号，再部署 APP
+
+```shell
+ansible-playbook -i ./inventory/hosts deploy-app.yml
+```
+
+访问 [http://www.example.com/api/](http://www.example.com/api/)
+
+
+
+回滚 APP
+
+```shell
+ansible-playbook -i ./inventory/hosts rollback-app.yml
 ```
 
 访问 [http://www.example.com/api/](http://www.example.com/api/)
