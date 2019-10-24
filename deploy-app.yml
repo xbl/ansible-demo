@@ -1,6 +1,10 @@
 - hosts: app
   become: yes
   become_method: sudo
+  # 逐步升级
+  # serial: "50%"
+  vars:
+    app_dir: "app-{{ ansible_date_time.iso8601_basic }}"
   tasks:
     - name: Create a directory if it does not exist
       file:
@@ -9,10 +13,13 @@
         mode: '0755'
     - name: Copy application
       copy:
-        src: ./files/server.js
-        dest: /usr/www/server.js
+        src: ./files/app/
+        dest: /usr/www/{{ app_dir }}
         mode: '0644'
+    - name: Stop application
+      command: pm2 delete server
+      ignore_errors: yes
     - name: Start application
       command: pm2 start server.js --name server
       args:
-        chdir: /usr/www/
+        chdir: /usr/www/{{ app_dir }}
