@@ -3,7 +3,8 @@ version: '3'
 services:
     app1:
         container_name: 'app1.example.com'
-        image: 'centos-ssh-node:1.1'
+        build: ./dockerfiles/centos-ssh-node
+        image: 'centos-ssh-node:1.0'
         restart: always
         hostname: 'app1.example.com'
         ports:
@@ -17,7 +18,8 @@ services:
         command: ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
     app2:
         container_name: 'app2.example.com'
-        image: 'centos-ssh-node:1.1'
+        build: ./dockerfiles/centos-ssh-node
+        image: 'centos-ssh-node:1.0'
         restart: always
         hostname: 'app2.example.com'
         ports:
@@ -31,7 +33,8 @@ services:
         command: ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
     nginx:
         container_name: 'www.example.com'
-        image: 'centos-ssh-nginx:1.2'
+        build: ./dockerfiles/centos-ssh-nginx
+        image: 'centos-ssh-nginx:1.0'
         restart: always
         hostname: 'www.example.com'
         privileged: true

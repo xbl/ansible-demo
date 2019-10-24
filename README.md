@@ -14,6 +14,24 @@ ssh-keygen -t rsa
 
 在 `~/.ssh` 目录生成 `id_rsa.pub` 把文件内容贴到 `docker-compose.yml` 的环境变量 `SSH_AUTHORIZED_KEYS`。
 
+``` shell
+docker-compose build
+```
+
+
+
+```shell
+docker-compose up
+```
+
+停止
+
+```shell
+docker-compose down
+```
+
+
+
 ## 配置 Ansible Inventory 文件
 
 默认路径为 `/etc/ansible/hosts` ，这里放到当前工程的 `inventory/hosts`
@@ -32,11 +50,23 @@ app2.example.com:2022 ansible_user=root
 ansible all -m ping -i ./inventory/hosts
 ```
 
-
+部署 APP
 
 ```shell
-ansible-playbook -i ./inventory/hosts copy.yml
+ansible-playbook -i ./inventory/hosts deploy-app.yml
 ```
+
+访问 [http://app1.example.com:8081/](http://app1.example.com:8081/)
+
+
+
+Reload NGINX
+
+```shell
+ansible-playbook -i ./inventory/hosts reload-nginx.yml
+```
+
+访问 [http://www.example.com/api/](http://www.example.com/api/)
 
 
 
