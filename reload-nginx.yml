@@ -4,7 +4,7 @@
   tasks:
     - name: Copy nginx config
       copy:
-        src: ./nginx/
+        src: ./files/nginx/
         dest: /etc/nginx/
         mode: '0644'
     - name: reload nginx
