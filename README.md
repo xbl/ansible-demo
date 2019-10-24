@@ -5,6 +5,7 @@
 ```
 127.0.0.1 app1.example.com
 127.0.0.1 app2.example.com
+127.0.0.1 www.example.com
 ```
 
 在主机上执行：
@@ -40,6 +41,9 @@ docker-compose down
 [app]
 app1.example.com:2021 ansible_user=root
 app2.example.com:2022 ansible_user=root
+
+[nginx]
+www.example.com:2023 ansible_user=root
 ```
 
 `ansible_user` 是登录用户，`sudo` 和 `su` 的密码可以通过 `ansible_become_password` 来设置。更多内容请查看[官方文档](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html)。
