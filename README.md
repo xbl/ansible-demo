@@ -38,13 +38,21 @@ docker-compose down
 默认路径为 `/etc/ansible/hosts` ，这里放到当前工程的 `inventory/hosts`
 
 ```ini
-[app]
+[app:children]
+app1
+app2
+
+[app1]
 app1.example.com:2021 ansible_user=root
+
+[app2]
 app2.example.com:2022 ansible_user=root
 
 [nginx]
 www.example.com:2023 ansible_user=root
 ```
+
+`app` 包含两个子组 `app1` 和 `app2`, 在 ansible-playbook 中的 `- hosts: app` 可对 `app1` 、`app2` 同时批量操作。
 
 `ansible_user` 是登录用户，`sudo` 和 `su` 的密码可以通过 `ansible_become_password` 来设置。更多内容请查看[官方文档](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html)。
 
@@ -53,6 +61,8 @@ www.example.com:2023 ansible_user=root
 ```shell
 ansible all -m ping -i ./inventory/hosts
 ```
+
+## 实践
 
 部署 APP
 
@@ -93,6 +103,14 @@ ansible-playbook -i ./inventory/hosts rollback-app.yml
 ```
 
 访问 [http://www.example.com/api/](http://www.example.com/api/)
+
+
+
+清除 APP
+
+```shell
+ansible-playbook -i ./inventory/hosts clean-app.yml
+```
 
 
 

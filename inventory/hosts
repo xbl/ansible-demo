@@ -1,12 +1,12 @@
-[app]
-app1.example.com:2021 ansible_user=root
-app2.example.com:2022 ansible_user=root
-
-[nginx]
-www.example.com:2023 ansible_user=root
+[app:children]
+app1
+app2
 
 [app1]
 app1.example.com:2021 ansible_user=root
 
 [app2]
 app2.example.com:2022 ansible_user=root
+
+[nginx]
+www.example.com:2023 ansible_user=root
