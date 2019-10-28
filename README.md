@@ -98,6 +98,24 @@ ansible-playbook -i ./inventory/hosts deploy-app.yml
 
 访问 [http://www.example.com/api/](http://www.example.com/api/)
 
+### 冒烟测试
+
+进入 `smoke-testing` 目录，安装 `npm ` 依赖：
+
+```shell
+npm install
+```
+
+运行冒烟测试：
+
+```shell
+npm test
+```
+
+
+
+
+
 ### 回滚
 
 最好的回滚方式就是重新部署前一个稳定版本。回滚的脚本写起来较为复杂，部署脚本通常是早已实现。回滚的操作不会经常使用，也就无法频繁的验证，相比之下部署脚本已经在生产环境验证成百上千次。在需要回滚时通常十万火急，重新部署前一个稳定版本会更加稳妥（制品管理就显得尤为重要）。
