@@ -3,8 +3,6 @@
   become_method: sudo
   # 逐步升级
   # serial: "50%"
-  vars:
-    app_dir: "app-{{ ansible_date_time.iso8601_basic }}"
   tasks:
     - name: Copy rollback shell
       copy:
