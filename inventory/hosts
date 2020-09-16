@@ -3,10 +3,10 @@ app1
 app2
 
 [app1]
-app1.example.com:2021 ansible_user=root
+app1.example.com:22 ansible_user=root ansible_password=Passw0rd!
 
 [app2]
-app2.example.com:2022 ansible_user=root
+app2.example.com:22 ansible_user=root ansible_password=Passw0rd!
 
 [nginx]
-www.example.com:2023 ansible_user=root
+www.example.com:22 ansible_user=root ansible_password=Passw0rd!
