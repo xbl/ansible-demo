@@ -5,6 +5,7 @@ RUN wget -O /etc/yum.repos.d/jenkins.repo \
 RUN rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 RUN yum -y upgrade
 RUN yum install -y initscripts
+RUN yum -y install ansible
 RUN yum -y install jenkins java-1.8.0-openjdk-devel
 
 CMD bash -c "/etc/rc.d/init.d/jenkins start && /usr/bin/supervisord --configuration=/etc/supervisord.conf"
