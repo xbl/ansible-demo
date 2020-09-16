@@ -48,4 +48,21 @@ services:
         #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
         #     - ./nginx/conf.d:/etc/nginx/conf.d/
         #     - ./html:/usr/share/nginx/html
+    jenkins:
+        container_name: 'jenkins.example.com'
+        build: ./dockerfiles/centos-ssh-jenkins
+        image: 'centos-ssh-jenkins:1.0'
+        restart: always
+        hostname: 'jenkins.example.com'
+        privileged: true
+        ports:
+            - '2024:22'
+            - '8084:8080'
+        volumes: 
+            - './jenkins/data:/var/jenkins_home'
+        environment: 
+            SSH_USER: root
+            # sudo 免密码
+            SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
+            SSH_AUTHORIZED_KEYS: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH4LJAzWDu2yr46q8A7fz2CNs3/WKNVLNtWUIdbMLmJ2BJ8L71grAzxvgvDaWBSBn8ki8DdJ0s8re7utj/6Cj7cgXr31z/g8trOFfn02Ul/hF3xcfAkYJJYIVu+my9nctQzLkOMkGAMZnX59R+hOlAVv424yBmwz/CtHNlCaQmYzL9Q3vkPdenGf2iQcoGeQHHbkI8JaIYKy9V632ac7qlkpNiODiRNYSkzBDDuJ6eAqz27LxgwbNOD5nmK+CBPp3MSc9B3WcxamUXi2tZe4/JXaijXpWDWlEBslBx9qa+32EVNe9awwPrS/stSXszAnuNVabnFiEN9k+VkLbsHk2b blxie@blxiedeMBP    
 
