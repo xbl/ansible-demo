@@ -8,4 +8,10 @@ RUN yum install -y initscripts
 RUN yum -y install ansible
 RUN yum -y install jenkins java-1.8.0-openjdk-devel
 
+# 提升 jenkins 用户 root 权限
+RUN sed -i -e 's/JENKINS_USER\="jenkins"/JENKINS_USER\="root"/g' /etc/sysconfig/jenkins
+RUN chown -R root:root /var/lib/jenkins
+RUN chown -R root:root /var/cache/jenkins
+RUN chown -R root:root /var/log/jenkins
+
 CMD bash -c "/etc/rc.d/init.d/jenkins start && /usr/bin/supervisord --configuration=/etc/supervisord.conf"
