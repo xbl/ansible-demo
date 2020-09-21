@@ -4,7 +4,8 @@ RUN wget -O /etc/yum.repos.d/jenkins.repo \
     https://pkg.jenkins.io/redhat-stable/jenkins.repo
 RUN rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 RUN yum -y upgrade
-RUN yum install -y initscripts
+RUN yum -y install git
+RUN yum -y install initscripts
 RUN yum -y install ansible
 RUN yum -y install jenkins java-1.8.0-openjdk-devel
 

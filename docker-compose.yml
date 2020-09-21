@@ -66,7 +66,7 @@ services:
             - '8084:8080'
         volumes: 
             - './jenkins/data:/var/lib/jenkins'
-            - './inventory/hosts:/inventory/hosts'
+            - './workspace:/home/workspace'
         environment: 
             ANSIBLE_HOST_KEY_CHECKING: 'False'
             SSH_USER: root
