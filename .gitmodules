@@ -1,0 +1,3 @@
+[submodule "node-app"]
+	path = node-app
+	url = https://github.com/xbl/node-app.git
